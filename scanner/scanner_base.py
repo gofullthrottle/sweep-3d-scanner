@@ -59,7 +59,7 @@ class ScannerBase(object):
             direction = self.Adafruit_MotorHAT.BACKWARD
 
         for _ in itertools.repeat(None, num_steps):
-            self.stepper.oneStep(direction, self.Adafruit_MotorHAT.MICROSTEP)
+            self.stepper.oneStep(direction, self.Adafruit_MotorHAT.INTERLEAVE)
 
     def move_degrees(self, num_deg=None):
         """Moves the stepper motor by the specified num_deg, as close as step resolution permits.
@@ -71,7 +71,7 @@ class ScannerBase(object):
 
     def get_num_steps_per_rev(self):
         """Returns the number of micro-steps in a full rotation"""
-        return 400 * 8  # 400 steps/rev * 8 microsteps/step
+        return 400 * 2  # 400 steps/rev * 2 microsteps/step
 
     def get_steps_per_deg(self):
         """Returns the number of steps per degree"""
