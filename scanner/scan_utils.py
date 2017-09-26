@@ -106,9 +106,16 @@ def contains_unordered_samples(scan):
     previous_angle = -1
     for index, sample in enumerate(scan.samples):
         if sample.angle <= previous_angle:
+            # Instead of returning True here, we should set the intensity to zero or fudge the angle
             return True
         previous_angle = sample.angle
     return False
+
+def remove_bad_scan(scan):
+    """ Removes samples from the scan whose samples are unordered by setting intensity to zero """
+    # angle of samples is encoded in millidegrees
+    #scan.samples[:] = [sample for sample in scan.samples if (
+    #    0.001 * sample.angle < low or 0.001 * sample.angle > high)]
 
 
 def main(arg_dict):
