@@ -262,7 +262,12 @@ def main(arg_dict):
     )
 
     # Create an exporter
-    exporter = scan_exporter.ScanExporter(file_name=arg_dict['output'])
+    exporter = scan_exporter.ScanExporter(file_name= "MS:" +
+                                          arg_dict['motor_speed'] + 
+                                          " SR:" + arg_dict['sample_rate']+ " "
+                                          +
+                                          arg_dict['output']
+                                         )
 
     use_dummy = arg_dict['use_dummy']
 
