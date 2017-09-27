@@ -131,8 +131,8 @@ class Scanner(object):
             # (this may indicate problem reading sync byte)
             if scan_utils.contains_unordered_samples(scan):
                 output_json_message({'type': "update", 'status': "scan",
-                                             'msg': "Bad sample encoutered, continuing scan."})                
-            #    continue
+                                             'msg': "Bad sample encountered, continuing scan."})
+                continue
 
             # Edge case (discard 1st scan without base movement and move base)
             if not rotated_already:
