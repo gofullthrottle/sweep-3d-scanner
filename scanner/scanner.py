@@ -9,6 +9,7 @@ import scan_settings
 import scan_exporter
 import scan_utils
 import scanner_base
+import socket
 from scanner_output import output_json_message
 
 
@@ -262,12 +263,14 @@ def main(arg_dict):
     )
 
     # Create an exporter
-    exporter = scan_exporter.ScanExporter(file_name= "MS:" +
-                                          arg_dict['motor_speed'] + 
-                                          " SR:" + arg_dict['sample_rate']+ " "
-                                          +
-                                          arg_dict['output']
-                                         )
+    exporter = scan_exporter.ScanExporter(file_name=socket.gethostname() + " - " +
+                                        arg_dict['output'] + " " +
+                                        " __ MS-" + str(arg_dict['motor_speed']) +
+                                        " __ SR-" + str(arg_dict['sample_rate']) +
+                                        " __ AR-" + str(arg_dict['angular_range']) +
+                                        " __ MA-" + str(arg_dict['mount_angle']) +
+                                        " __ DZ-" + str(arg_dict['dead_zone']) +
+                                        ".csv")
 
     use_dummy = arg_dict['use_dummy']
 
@@ -319,14 +322,15 @@ if __name__ == '__main__':
                         help='Starting angle of deadzone',
                         default=135,
                         required=False)
-    default_filename = "Scan " + datetime.datetime.fromtimestamp(
-        time.time()).strftime('%Y-%m-%d %H-%M-%S') + '.csv'
+
+    default_filename = (datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H-%M-%S'))
+
     parser.add_argument('-o', '--output',
                         help='Filepath for the exported scan',
                         default=default_filename,
                         required=False)
     parser.add_argument('-d', '--use_dummy',
-                        help='Use the dummy verison without hardware',
+                        help='Use the dummy version without hardware',
                         default=False,
                         action='store_true',
                         required=False)
